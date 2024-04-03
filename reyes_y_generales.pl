@@ -1,4 +1,4 @@
-:- dynamic yes/1, no/1.
+:- dynamic si/1, no/1.
 
 /* Reglas de clasificación */
 hombre :- verify(es_hombre).
@@ -18,20 +18,20 @@ ask(Question) :-
     write('? '),
     read(Response),
     nl,
-    ( (Response == yes ; Response == y) ->
-       assert(yes(Question)) ;
+    ( (Response == si ; Response == s) ->
+       assert(si(Question)) ;
        assert(no(Question)), fail).
 
 /* Cómo verificar algo */
 verify(S) :-
-   (yes(S) ->
+   (si(S) ->
     true ;
     (no(S) ->
      fail ;
      ask(S))).
 
 /* Deshacer todas las afirmaciones de sí/no */
-undo :- retractall(yes(_)), retractall(no(_)).
+undo :- retractall(si(_)), retractall(no(_)).
 
 /* Hipótesis a ser probadas */
 go :- hypothesize(Personaje),
